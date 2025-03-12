@@ -1,17 +1,14 @@
-package org.skypro.skyshop.model.service;
+package org.skypro.skyshop.Service;
 
-import org.skypro.skyshop.model.article.Article;
-import org.skypro.skyshop.model.product.DiscountedProduct;
-import org.skypro.skyshop.model.product.FixPriceProduct;
-import org.skypro.skyshop.model.product.Product;
-import org.skypro.skyshop.model.product.SimpleProduct;
-import org.skypro.skyshop.model.search.Searchable;
+import org.skypro.skyshop.article.Article;
+import org.skypro.skyshop.product.DiscountedProduct;
+import org.skypro.skyshop.product.FixPriceProduct;
+import org.skypro.skyshop.product.Product;
+import org.skypro.skyshop.product.SimpleProduct;
+import org.skypro.skyshop.search.Searchable;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -62,6 +59,10 @@ public class StorageService {
                 productStorage.values().stream(),
                 articleStorage.values().stream()
         ).collect(Collectors.toList());
+    }
+
+    public Optional<Product> getProductById(UUID id) {
+        return Optional.ofNullable(productStorage.get(id));
     }
 }
 

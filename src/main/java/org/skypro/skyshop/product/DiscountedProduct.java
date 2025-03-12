@@ -1,6 +1,5 @@
-package org.skypro.skyshop.model.product;
+package org.skypro.skyshop.product;
 
-import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonValueFormat.UUID;
 import java.util.UUID;
 
 public class DiscountedProduct extends Product {
