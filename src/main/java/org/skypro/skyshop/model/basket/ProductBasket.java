@@ -19,7 +19,9 @@ public class ProductBasket {
     }
 
     public void addProduct(UUID id) {
-        basketItems.put(id, basketItems.getOrDefault(id, 0) +1);
+        System.out.println("Добавление продукта с ID: " + id);
+        basketItems.put(id, basketItems.getOrDefault(id, 0) + 1);
+        System.out.println("Текущее состояние корзины: " + basketItems);
     }
 
     public Map<UUID, Integer> getBasketItems() {

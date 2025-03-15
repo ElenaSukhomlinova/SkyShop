@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/shop")
+@RequestMapping("/shop/basket")
 public class BasketController {
     private final BasketService basketService;
 
@@ -16,8 +16,15 @@ public class BasketController {
     }
 
     @PostMapping("/add/{id}")
-    public void addToBasket(@PathVariable UUID id) {
+    public String addToBasket(@PathVariable UUID id) {
         basketService.addProductToBasket(id);
+        return "Продукт успешно добавлен";
+    }
+
+    @PostMapping
+    public String addToBasketWithParam(@RequestParam UUID id) {
+        basketService.addProductToBasket(id);
+        return "Продукт успешно добавлен";
     }
 
     @GetMapping
@@ -25,14 +32,11 @@ public class BasketController {
         return basketService.getUserBasket();
     }
 
-    @GetMapping("/basket/{id}")
-    public String addProduct(@PathVariable("id") UUID id) {
-        basketService.addProductToBasket(id);
-        return "Продукт успешно добавлен";
+    @GetMapping("/{id}")
+    public String getBasketItem(@PathVariable UUID id) {
+        int quantity = basketService.getProductQuantity(id);
+        return "Товар с ID: " + id + ", количество: " + quantity;
     }
 
-    @GetMapping("/basket")
-    public UserBasket getUserBasket() {
-        return basketService.getUserBasket();
-    }
+
 }

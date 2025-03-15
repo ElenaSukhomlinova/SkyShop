@@ -25,40 +25,61 @@ public class StorageService {
 
     private void fillStorageWithTestData() {
 
-        productStorage.put(UUID.randomUUID(), new SimpleProduct(UUID.randomUUID(), "Яблоко", 115));
-        productStorage.put(UUID.randomUUID(), new SimpleProduct(UUID.randomUUID(), "Груша", 130));
-        productStorage.put(UUID.randomUUID(), new SimpleProduct(UUID.randomUUID(), "Дыня", 95));
-        productStorage.put(UUID.randomUUID(), new SimpleProduct(UUID.randomUUID(), "Арбуз", 70));
-        productStorage.put(UUID.randomUUID(), new SimpleProduct(UUID.randomUUID(), "Слива", 145));
-        productStorage.put(UUID.randomUUID(), new SimpleProduct(UUID.randomUUID(), "Виноград", 125));
+        UUID appleId = UUID.randomUUID();
+        productStorage.put(appleId, new SimpleProduct(appleId, "Яблоко", 115));
 
-        productStorage.put(UUID.randomUUID(), new DiscountedProduct(UUID.randomUUID(), "Апельсин", 95, 5));
-        productStorage.put(UUID.randomUUID(), new DiscountedProduct(UUID.randomUUID(), "Грейпфрукт", 105, 5));
+        UUID pearId = UUID.randomUUID();
+        productStorage.put(pearId, new SimpleProduct(pearId, "Груша", 130));
 
-        productStorage.put(UUID.randomUUID(), new FixPriceProduct(UUID.randomUUID(), "Масло"));
+        UUID melonId = UUID.randomUUID();
+        productStorage.put(melonId, new SimpleProduct(melonId, "Дыня", 95));
+
+        UUID watermelonId = UUID.randomUUID();
+        productStorage.put(watermelonId, new SimpleProduct(watermelonId, "Арбуз", 70));
+
+        UUID plumId = UUID.randomUUID();
+        productStorage.put(plumId, new SimpleProduct(plumId, "Слива", 145));
+
+        UUID grapeId = UUID.randomUUID();
+        productStorage.put(grapeId, new SimpleProduct(grapeId, "Виноград", 125));
+
+        UUID orangeId = UUID.randomUUID();
+        productStorage.put(orangeId, new DiscountedProduct(orangeId, "Апельсин", 95, 5));
+
+        UUID grapefruitId = UUID.randomUUID();
+        productStorage.put(grapefruitId, new DiscountedProduct(grapefruitId, "Грейпфрукт", 105, 5));
+
+        UUID butterId = UUID.randomUUID();
+        productStorage.put(butterId, new FixPriceProduct(butterId, "Масло"));
 
 
-        articleStorage.put(UUID.randomUUID(), new Article(UUID.randomUUID(), "Дыня", "Сочная и вкусная"));
-        articleStorage.put(UUID.randomUUID(), new Article(UUID.randomUUID(), "Арбуз", "Спелый и красный"));
-        articleStorage.put(UUID.randomUUID(), new Article(UUID.randomUUID(), "Виноград", "Лучшие грозди"));
-        articleStorage.put(UUID.randomUUID(), new Article(UUID.randomUUID(), "Масло", "Пастеризованное, лучшего отжима"));
+        UUID melonArticleId = UUID.randomUUID();
+        articleStorage.put(melonArticleId, new Article(melonArticleId, "Дыня1", "Сочная и вкусная"));
+
+        UUID watermelonArticleId = UUID.randomUUID();
+        articleStorage.put(watermelonArticleId, new Article(watermelonArticleId, "Арбуз1", "Спелый и красный"));
+
+        UUID grapeArticleId = UUID.randomUUID();
+        articleStorage.put(grapeArticleId, new Article(grapeArticleId, "Виноград1", "Лучшие грозди"));
+
+        UUID butterArticleId = UUID.randomUUID();
+        articleStorage.put(butterArticleId, new Article(butterArticleId, "Масло1", "Пастеризованное, лучшего отжима"));
     }
 
 
     public Collection<Article> getAllArticles() {
-        return articleStorage.values();
+        return Collections.unmodifiableCollection(articleStorage.values());
     }
 
-
     public Collection<Product> getAllProducts() {
-        return productStorage.values();
+        return Collections.unmodifiableCollection(productStorage.values());
     }
 
     public Collection<Searchable> getAllSearchables() {
-        return Stream.concat(
+        return Collections.unmodifiableCollection(Stream.concat(
                 productStorage.values().stream(),
                 articleStorage.values().stream()
-        ).collect(Collectors.toList());
+        ).collect(Collectors.toList()));
     }
 
     public Optional<Product> getProductById(UUID id) {

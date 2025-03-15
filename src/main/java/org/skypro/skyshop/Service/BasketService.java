@@ -23,11 +23,14 @@ public class BasketService {
     }
 
     public void addProductToBasket(UUID id) {
+        System.out.println("Попытка добавить продукт с ID: " + id);
         Optional<Product> productOptional = storageService.getProductById(id);
         if (productOptional.isEmpty()) {
+            System.out.println("Продукт с ID " + id + " не найден.");
             throw new IllegalArgumentException("Товар с ID " + id + " не найден.");
         }
         productBasket.addProduct(id);
+        System.out.println("Продукт с ID " + id + " успешно добавлен в корзину.");
     }
 
     public UserBasket getUserBasket() {
@@ -44,5 +47,8 @@ public class BasketService {
                 .collect(Collectors.toList());
 
         return new UserBasket(items);
+    }
+    public int getProductQuantity(UUID id) {
+        return productBasket.getBasketItems().getOrDefault(id, 0);
     }
 }
