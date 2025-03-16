@@ -15,14 +15,8 @@ public class BasketController {
         this.basketService = basketService;
     }
 
-    @PostMapping("/add/{id}")
+    @GetMapping("/{id}")
     public String addToBasket(@PathVariable UUID id) {
-        basketService.addProductToBasket(id);
-        return "Продукт успешно добавлен";
-    }
-
-    @PostMapping
-    public String addToBasketWithParam(@RequestParam UUID id) {
         basketService.addProductToBasket(id);
         return "Продукт успешно добавлен";
     }
@@ -31,12 +25,5 @@ public class BasketController {
     public UserBasket getBasket() {
         return basketService.getUserBasket();
     }
-
-    @GetMapping("/{id}")
-    public String getBasketItem(@PathVariable UUID id) {
-        int quantity = basketService.getProductQuantity(id);
-        return "Товар с ID: " + id + ", количество: " + quantity;
-    }
-
 
 }
